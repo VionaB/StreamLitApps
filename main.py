@@ -111,7 +111,7 @@ def get_ad(image_prompt):
     return ad_poster_path
 
 def swap_faces(input_path, target_path):
-    swap_image = open(input_path, 'br')
+    swap_image = input_path
     target_image = open(target_path, 'br')
     output = replicate.run(
         "lucataco/faceswap:9a4298548422074c3f57258c5d544497314ae4112df80d116f0d2109e843d20d",
@@ -142,10 +142,11 @@ def main():
         if uploaded_file is not None:
             # TODO: This needs a path to upload file not upload file
             link = swap_faces(uploaded_file, ad_image_path)
-            # TODO: Display Link 
+            st.image(link, caption="Generated Ad", width=None,
+                     use_column_width=None, clamp=False, channels="RGB", output_format="auto")
         else:
             print("reached end of script")
-            # display not faceswapped ad
+            st.image(target_image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
 
 if __name__ == "__main__":
     main()
